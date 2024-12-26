@@ -19,8 +19,15 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from jym import views
+
+from rest_framework import routers
+from jym.views import TeamView
+
+router = routers.DefaultRouter()
+router.register('', TeamView, basename='team')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('api/', include(router.urls)),
     path('jym/', include('jym.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
